@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # ---------- TIER 2: BACKEND / API ----------
+  backend:
+    build: ./backend
+    container_name: lab-backend
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_URL: mongodb://mongo:27017/visitordb
+    depends_on:
+      - mongo
+    networks:
+      - lab-network
+
+  # ---------- TIER 3: DATABASE ----------
+  mongo:
+    image: mongo:7
+    container_name: lab-mongo
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - lab-network
+
+networks:
+  lab-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
