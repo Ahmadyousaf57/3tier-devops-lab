@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ahmad's DevOps Lab - 3 Tier App</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #0f172a; color: #f1f5f9; text-align: center; padding-top: 80px; }
+  h1 { color: #38bdf8; }
+  .box { background: #1e293b; display: inline-block; padding: 30px 50px; border-radius: 12px; margin-top: 20px; }
+  .count { font-size: 48px; color: #4ade80; font-weight: bold; }
+  .tier { font-size: 14px; color: #94a3b8; margin-top: 20px; }
+</style>
+</head>
+<body>
+  <h1>Ahmad's DevOps Lab — 3 Tier App</h1>
+  <div class="box">
+    <p>Total Visits</p>
+    <div class="count" id="visitCount">Loading...</div>
+  </div>
+  <div class="tier">
+    Tier 1: Nginx (Frontend) → Tier 2: Node/Express (Backend API) → Tier 3: MongoDB (Database)
+  </div>
+
+  <script>
+        const API_URL = '/api/visits';
+
+    fetch(API_URL)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('visitCount').innerText = data.visits;
+      })
+      .catch(err => {
+        document.getElementById('visitCount').innerText = 'Backend not reachable';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
